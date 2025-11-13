@@ -1,143 +1,145 @@
-Hybrid Data Compression Using Arithmetic Coding and Recurrent Neural Networks
-1. Introduction
+# 🚀 Hybrid Data Compression Using Arithmetic Coding & Recurrent Neural Networks (RNN)
 
-This project presents a hybrid lossless compression system that combines an LSTM-based Recurrent Neural Network (RNN) with Arithmetic Coding.
-Traditional algorithms like Shannon–Fano use static probability models and cannot capture patterns or context.
-The proposed system uses adaptive neural probability prediction, significantly improving compression efficiency while maintaining lossless reconstruction.
+> **A hybrid lossless compression framework that integrates LSTM-based neural probability modeling with Arithmetic Coding to achieve significantly higher compression efficiency compared to the traditional Shannon–Fano algorithm.**
 
-2. Project Folder Structure
+This repository contains all implementation files, notebooks, reports, and presentations for the ADCT (Advanced Data Compression Techniques) course project.
+
+---
+
+## ⭐ Project Highlights
+
+### 🔥 Why a Hybrid Model?
+
+Traditional compression methods like **Shannon–Fano** use static probabilities, assigning codes based only on global symbol frequency. This is inefficient for data where patterns are contextual.
+
+This project overcomes these limitations by using an **RNN (LSTM)** to predict adaptive, context-based probabilities for each symbol. These highly accurate, dynamic probabilities are then fed into an **Arithmetic Coder**, which can achieve near-optimal, fractional-bit compression.
+
+### 📉 Results at a Glance
+
+The hybrid approach achieves approximately **4 times better compression** than the baseline Shannon–Fano algorithm on the test data.
+
+| Method | Original Size | Compressed Size | Compression Ratio | Size Reduction |
+| :--- | :--- | :--- | :--- | :--- |
+| **Shannon–Fano** | 6254 bytes | 3563 bytes | 0.570× | 43.0% |
+| **RNN + Arithmetic (Proposed)** | 6254 bytes | **900 bytes** | **0.144×** | **85.6%** |
+
+---
+
+## 🧠 System Overview
+
+1.  **Input & Preprocessing**: The input file is read as raw bytes and converted into a tensor for the neural network.
+
+2.  **RNN Probability Modeling**: An LSTM network processes the byte sequence, learns byte-level dependencies, and predicts the probability distribution for the *next* byte.
+
+3.  **Softmax Conversion**: The raw output (logits) from the RNN is converted into a valid probability distribution using the Softmax function:
+    $$P(x) = \frac{e^{z(x)}}{\sum_{k} e^{z(k)}}$$
+
+4.  **Arithmetic Encoding**: The Arithmetic Encoder uses the adaptive probabilities from the RNN to progressively shrink a numerical interval for the entire file, resulting in a single, highly compact compressed output.
+
+5.  **Arithmetic Decoding**: The decoder uses an identical, synchronized RNN model to recompute the *exact same* probability predictions during decompression, allowing it to perfectly reconstruct the original file from the compressed data.
+
+6.  **Verification**: **SHA-256** hashes of the original and restored files are compared to confirm the compression is 100% lossless.
+
+---
+
+## 📂 Repository Contents
+
+```bash
+.
 ├── ADCT_REPORT.pdf
-│      Full project report containing literature review,
-│      methodology, experiments, implementation and results.
+│      (Complete project documentation with methodology,
+│       architecture, implementation and experimental results)
 │
 ├── Abstract.pdf
-│      One-page abstract summarizing the project objectives,
-│      methodology, and findings.
+│      (One-page summary of the project)
 │
 ├── Existing_system Shannon Fano.ipynb
-│      Implementation of Shannon–Fano coding (existing method).
-│      Includes encoding, decoding, and size comparison.
+│      (Implementation of Shannon–Fano for comparison)
 │
 ├── Proposed system(Hybrid Compression).ipynb
-│      Full implementation of the proposed RNN + Arithmetic
-│      Coding hybrid model. Includes:
-│          - File upload
-│          - RNN training & prediction
-│          - Arithmetic encoding/decoding
-│          - SHA-256 verification
-│          - Compression statistics and UI buttons
+│      (Full hybrid system: RNN + Arithmetic Coding + UI)
 │
 ├── Final review ppt.pptx
-│      Final presentation PPT used for project viva.
+│      (Final presentation slides)
 │
 ├── Review -1 PPT ADCT.pptx
-│      Initial Review-1 presentation.
+│      (Review-1 presentation slides)
 │
 └── README.md
-       This file.
+       (This file)
 
-3. Features
+⚙️ Features
+✔️ Complete Lossless Compression: Guarantees perfect reconstruction of the original file.
 
-Lossless compression and decompression
+✔️ Neural Probability Model: Uses an LSTM-based RNN for adaptive, context-aware probability prediction.
 
-RNN-based adaptive probability prediction
+✔️ Custom Coder: Includes full implementations of the Arithmetic Encoder and Decoder from scratch.
 
-Custom arithmetic encoder and decoder
+✔️ Interactive UI: Features a Google Colab file upload and download interface.
 
-File upload & download UI in Colab
+✔️ Comparative Analysis: Directly compares results against a baseline Shannon–Fano implementation.
 
-Automatic SHA-256 hash verification
+✔️ Verification: Integrated SHA-256 hashing to verify lossless reconstruction.
 
-Comparison with Shannon–Fano
+🛠️ Setup & Running
+▶️ Run in Google Colab (Recommended)
+Open Proposed system(Hybrid Compression).ipynb in Google Colab.
 
-4. Methodology
-4.1 Preprocessing
+Upload any file (e.g., .txt, .py) when prompted by the file upload cell.
 
-Input file is converted into a sequence of bytes (0–255).
+Run all cells in order.
 
-4.2 RNN Probability Modeling
+The output will display compression statistics and provide UI buttons to download the compressed file and the restored (decompressed) file.
 
-An LSTM processes previous bytes and predicts probability distribution for the next byte.
-Logits are converted to probabilities using softmax.
+▶️ Run Locally
+1. Ensure you have Python and Jupyter Notebook installed.
 
-4.3 Arithmetic Encoding
+2. Install the required dependencies:
 
-The predicted probabilities shrink the number line interval for each byte, producing highly compact fractional-bit output.
+pip install torch numpy
 
-4.4 Arithmetic Decoding
+3. Launch Jupyter Notebook:
 
-Uses the same RNN predictions to reverse the interval updates and perfectly reconstruct the original file.
+Launch Jupyter Notebook:
 
-4.5 Verification
+4. Open and run the Proposed system(Hybrid Compression).ipynb notebook.
 
-SHA-256 hash of original and restored file are compared to ensure lossless reconstruction.
+📊 Results & Comparison
+Example Output (from Colab)
+Original Size: 6254 bytes
+Compressed Size: 900 bytes
+Compression Ratio: 0.144×
 
-5. Results
-Shannon–Fano (Existing System)
+SHA-256 (original): c3a2...b91f
+SHA-256 (restored): c3a2...b91f
 
-Original size: 6254 bytes
+Reconstruction: Verified lossless
 
-Compressed size: 3563 bytes
+📈 Advantages
+Learns Structure: The RNN model can learn long-term dependencies and complex structures in the data, unlike static models.
 
-Compression ratio: 0.570×
+Accurate Probabilities: Produces highly accurate, context-specific probabilities, which is the key to high compression.
 
-Reduction: 43%
+Near-Optimal: Arithmetic coding achieves compression ratios very close to the theoretical limit (entropy) defined by the probability model.
 
-Lossless reconstruction: Yes
+Universal: Works well on various file types, especially those with repetitive or complex patterns (like text, code, or structured data).
 
-RNN + Arithmetic Coding (Proposed System)
+🚧 Future Enhancements
+Model Architecture: Replace the RNN/LSTM with more modern architectures like GRU or a Transformer-based model for potentially better probability modeling.
 
-Original size: 6254 bytes
+Speed & Optimization: Improve training speed and implement batched inference for faster encoding/decoding.
 
-Compressed size: 900 bytes
+Standalone Tool: Build a standalone desktop application (e.g., using PyQT or Tkinter) for easier use.
 
-Compression ratio: 0.144×
+Data Types: Extend the framework to specialize in other data types, such as images, audio, or video.
 
-Reduction: 85.6%
+Model Quantization: Apply model compression (e.g., quantization) for deployment on low-resource or mobile devices.
 
-Lossless reconstruction: Yes
-
-Proposed system achieves around 4× better compression efficiency.
-
-6. How to Run
-Google Colab
-
-Open the .ipynb file in Google Colab.
-
-Upload any file using the UI.
-
-7. Technologies Used
-
-Python
-
-PyTorch (LSTM Model)
-
-NumPy
-
-Google Colab
-
-Custom Arithmetic Coding Implementation
-
-8. Future Enhancements
-
-Replace RNN with GRU/Transformer for deeper learning.
-
-Build GUI-based desktop compression tool.
-
-Improve compression speed through model optimization.
-
-Apply hybrid compression to multimedia data (audio, image, video).
-
-9. References
-
+📚 References
 Shannon–Fano Coding Theory
 
-Arithmetic Coding Algorithms
+Arithmetic Coding Theory
 
-RNN/LSTM Documentation (PyTorch)
+Recurrent Neural Networks (RNNs) & LSTMs
 
-Neural Compression Research Papers
-
-Run all cells to train/predict/compress/decompress.
-
-Download compressed and restored files using built-in buttons
+PyTorch Documentation
