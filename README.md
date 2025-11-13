@@ -42,30 +42,6 @@ The hybrid approach achieves approximately **4 times better compression** than t
 
 ---
 
-## 📂 Repository Contents
-.
-├── ADCT_REPORT.pdf
-│      (Complete project documentation with methodology,
-│       architecture, implementation and experimental results)
-│
-├── Abstract.pdf
-│      (One-page summary of the project)
-│
-├── Existing_system Shannon Fano.ipynb
-│      (Implementation of Shannon–Fano for comparison)
-│
-├── Proposed system(Hybrid Compression).ipynb
-│      (Full hybrid system: RNN + Arithmetic Coding + UI)
-│
-├── Final review ppt.pptx
-│      (Final presentation slides)
-│
-├── Review -1 PPT ADCT.pptx
-│      (Review-1 presentation slides)
-│
-└── README.md
-       (This file)
-^
 ## ⚙️ Features
 ✔️ Complete Lossless Compression: Guarantees perfect reconstruction of the original file.
 
