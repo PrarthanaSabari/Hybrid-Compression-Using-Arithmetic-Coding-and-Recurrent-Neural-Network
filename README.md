@@ -43,8 +43,6 @@ The hybrid approach achieves approximately **4 times better compression** than t
 ---
 
 ## 📂 Repository Contents
-
-```bash
 .
 ├── ADCT_REPORT.pdf
 │      (Complete project documentation with methodology,
@@ -67,8 +65,8 @@ The hybrid approach achieves approximately **4 times better compression** than t
 │
 └── README.md
        (This file)
-
-⚙️ Features
+^
+## ⚙️ Features
 ✔️ Complete Lossless Compression: Guarantees perfect reconstruction of the original file.
 
 ✔️ Neural Probability Model: Uses an LSTM-based RNN for adaptive, context-aware probability prediction.
@@ -81,17 +79,17 @@ The hybrid approach achieves approximately **4 times better compression** than t
 
 ✔️ Verification: Integrated SHA-256 hashing to verify lossless reconstruction.
 
-🛠️ Setup & Running
-▶️ Run in Google Colab (Recommended)
-Open Proposed system(Hybrid Compression).ipynb in Google Colab.
+## 🛠️ Setup & Running
+### ▶️ Run in Google Colab (Recommended)
+1. Open Proposed system(Hybrid Compression).ipynb in Google Colab.
 
-Upload any file (e.g., .txt, .py) when prompted by the file upload cell.
+2. Upload any file (e.g., .txt, .py) when prompted by the file upload cell.
 
-Run all cells in order.
+3. Run all cells in order.
 
-The output will display compression statistics and provide UI buttons to download the compressed file and the restored (decompressed) file.
+4. The output will display compression statistics and provide UI buttons to download the compressed file and the restored (decompressed) file.
 
-▶️ Run Locally
+### ▶️ Run Locally
 1. Ensure you have Python and Jupyter Notebook installed.
 
 2. Install the required dependencies:
@@ -104,7 +102,7 @@ Launch Jupyter Notebook:
 
 4. Open and run the Proposed system(Hybrid Compression).ipynb notebook.
 
-📊 Results & Comparison
+## 📊 Results & Comparison
 Example Output (from Colab)
 Original Size: 6254 bytes
 Compressed Size: 900 bytes
@@ -115,7 +113,7 @@ SHA-256 (restored): c3a2...b91f
 
 Reconstruction: Verified lossless
 
-📈 Advantages
+## 📈 Advantages
 Learns Structure: The RNN model can learn long-term dependencies and complex structures in the data, unlike static models.
 
 Accurate Probabilities: Produces highly accurate, context-specific probabilities, which is the key to high compression.
@@ -124,7 +122,7 @@ Near-Optimal: Arithmetic coding achieves compression ratios very close to the th
 
 Universal: Works well on various file types, especially those with repetitive or complex patterns (like text, code, or structured data).
 
-🚧 Future Enhancements
+## 🚧 Future Enhancements
 Model Architecture: Replace the RNN/LSTM with more modern architectures like GRU or a Transformer-based model for potentially better probability modeling.
 
 Speed & Optimization: Improve training speed and implement batched inference for faster encoding/decoding.
@@ -135,7 +133,7 @@ Data Types: Extend the framework to specialize in other data types, such as imag
 
 Model Quantization: Apply model compression (e.g., quantization) for deployment on low-resource or mobile devices.
 
-📚 References
+## 📚 References
 Shannon–Fano Coding Theory
 
 Arithmetic Coding Theory
